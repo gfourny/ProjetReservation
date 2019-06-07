@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  ven. 07 juin 2019 à 11:44
+-- Généré le :  ven. 07 juin 2019 à 11:59
 -- Version du serveur :  10.1.37-MariaDB
 -- Version de PHP :  7.3.0
 
@@ -162,15 +162,16 @@ CREATE TABLE `Reservation` (
   `date_fin` date NOT NULL,
   `nb_personne` int(11) NOT NULL,
   `id_emplacement` int(11) NOT NULL,
-  `id_prestation` int(11) NOT NULL
+  `id_prestation` int(11) NOT NULL,
+  `nom_personne` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `Reservation`
 --
 
-INSERT INTO `Reservation` (`id_reservation`, `date_arrivee`, `date_fin`, `nb_personne`, `id_emplacement`, `id_prestation`) VALUES
-(8, '2019-06-07', '2019-06-12', 3, 32, 2);
+INSERT INTO `Reservation` (`id_reservation`, `date_arrivee`, `date_fin`, `nb_personne`, `id_emplacement`, `id_prestation`, `nom_personne`) VALUES
+(8, '2019-06-07', '2019-06-12', 3, 32, 2, 'Alexandre Desvallées');
 
 --
 -- Index pour les tables déchargées
