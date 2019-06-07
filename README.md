@@ -62,5 +62,6 @@ Vous devez réaliser les instructions suivantes :
 * Dans le répertoire **{vendor}**, supprimez le répertoire **{composer}** 
 * Dans votre terminal (Windows, Linux, OSX) utilisez la commande :
 > php composer.phar install
+
 Veillez à avoir une version de PHP à jour !! (à date Juin 2019 nous utilisons PHP 7.1.23 (cli) (built: Feb 22 2019 22:19:32) ( NTS ))
 * Votre projet est normalement de nouveau opérationnel
