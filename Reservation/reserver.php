@@ -1,12 +1,12 @@
 <?php
 
-require_once("cle.php");
+require_once("./cle.php");
 
 
 function creerFacture($id_reservation = NULL)
 {
     $ch = curl_init();
-    $apikey = $cle;
+    $apikey = "LaCerisai@44.Collaborateur";
     $httpheader = ['keyCamping: ' . $apikey];
     $httpheader[] = "Content-Type:application/json";
     $ressource =
@@ -25,7 +25,7 @@ function creerFacture($id_reservation = NULL)
 function modifierFacture($id_facture = NULL, $id_reservation = NULL)
 {
     $ch = curl_init();
-    $apikey = $cle;
+    $apikey = "LaCerisai@44.Collaborateur";
     $httpheader = ['keyCamping: ' . $apikey];
     $httpheader[] = "Content-Type:application/json";
     $ressource =
@@ -44,7 +44,7 @@ function modifierFacture($id_facture = NULL, $id_reservation = NULL)
 function editerFacture($id_facture = NULL)
 {
     $ch = curl_init();
-    $apikey = $cle;
+    $apikey = "LaCerisai@44.Collaborateur";
     $httpheader = ['keyCamping: ' . $apikey];
     if ($id_facture != NULL) {
         curl_setopt($ch, CURLOPT_URL, "http://localhost:8080/ProjetReservation/api/private/index.php/Facture/" . $id_facture);
@@ -60,7 +60,7 @@ function editerFacture($id_facture = NULL)
 function ajouterReservation($date_arrivee = NULL, $date_fin = NULL, $nb_personne = NULL, $id_emplacement = NULL, $id_prestation = NULL, $nom_personne = NULL)
 {
     $ch = curl_init();
-    $apikey = $cle;
+    $apikey = "LaCerisai@44.Collaborateur";
     $httpheader = ['keyCamping: ' . $apikey];
     $httpheader[] = "Content-Type:application/json";
     $ressource =
@@ -85,7 +85,7 @@ function ajouterReservation($date_arrivee = NULL, $date_fin = NULL, $nb_personne
 function modifierReservation($date_arrivee = NULL, $date_fin = NULL, $nb_personne = NULL, $id_emplacement = NULL, $id_prestation = NULL, $nom_personne = NULL, $id_reservation = NULL)
 {
     $ch = curl_init();
-    $apikey = $cle;
+    $apikey = "LaCerisai@44.Collaborateur";
     $httpheader = ['keyCamping: ' . $apikey];
     $httpheader[] = "Content-Type:application/json";
     $ressource =
@@ -110,7 +110,7 @@ function modifierReservation($date_arrivee = NULL, $date_fin = NULL, $nb_personn
 function supprimerReservation($id_reservation = NULL)
 {
     $ch = curl_init();
-    $apikey = $cle;
+    $apikey = "LaCerisai@44.Collaborateur";
     $httpheader = ['keyCamping: ' . $apikey];
     curl_setopt($ch, CURLOPT_URL, "http://localhost:8080/ProjetReservation/api/private/index.php/Reservation/" . $id_reservation);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
@@ -123,7 +123,7 @@ function supprimerReservation($id_reservation = NULL)
 function obtenirReservation($id_reservation = NULL)
 {
     $ch = curl_init();
-    $apikey = $cle;
+    $apikey = "LaCerisai@44.Collaborateur";
     $httpheader = ['keyCamping: ' . $apikey];
     if ($id_reservation != NULL) {
         curl_setopt($ch, CURLOPT_URL, "http://localhost:8080/ProjetReservation/api/private/index.php/Reservation/" . $id_reservation);
@@ -143,7 +143,7 @@ function obtenirReservation($id_reservation = NULL)
 function obtenirEmplacement($id_emplacement = NULL)
 {
     $ch = curl_init();
-    $apikey = $cle;
+    $apikey = "LaCerisai@44.Collaborateur";
     $httpheader = ['keyCamping: ' . $apikey];
     if ($id_emplacement != NULL) {
         curl_setopt($ch, CURLOPT_URL, "http://localhost:8080/ProjetReservation/api/private/index.php/Reservation/" . $id_emplacement);
@@ -156,6 +156,7 @@ function obtenirEmplacement($id_emplacement = NULL)
         curl_setopt($ch, CURLOPT_HTTPHEADER, $httpheader);
         $reponse = curl_exec($ch);
         curl_close($ch);
+        var_dump($reponse);
         return $reponse;
     }
 }

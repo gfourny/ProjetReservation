@@ -1,7 +1,7 @@
 <?php
-// require __DIR__. "../api/private/Reservation.php";
 require("../api/private/Reservation.php");
-
+require("../api/public/Emplacement.php");
+require("./reserver.php")
 ?>
 
 <!-- Formulaire Reservation -->
@@ -27,7 +27,8 @@ require("../api/private/Reservation.php");
 
     <label for="start">Type d'emplacement :</label>
     <?php
-    $emplacements = optenirEmplacement();
+    $emplacements = obtenirEmplacement();
+    var_dump($emplacements);
     echo build_list($emplacements);
     ?>
 
@@ -57,8 +58,9 @@ require("../api/private/Reservation.php");
 // Function Section
 function build_list($array)
 {
+    $entryList = json_decode($array, true);
     $list = '<ul>';
-    foreach ($array as $key => $value) {
+    foreach ($entryList as $key => $value) {
         foreach ($value as $key => $type) {
             if (is_array($type)) {
                 $list .= build_list($type);
@@ -67,7 +69,6 @@ function build_list($array)
             }
         }
     }
-
     $list .= '</ul>';
     return $list;
 }
