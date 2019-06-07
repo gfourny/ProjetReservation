@@ -21,7 +21,12 @@ class Facture {
         if ($id != NULL) {
 
             //Préparation de la requête
-            $req = "select * from Facture where id_facture=?";
+            $req = "SELECT Reservation.nb_personne, Reservation.date_arrivee, Reservation.date_fin, Emplacement.type, Emplacement.prix, Prestation.nom, Prestation.prix, Reservation.nom_personne
+            FROM Facture
+            INNER JOIN Reservation ON Facture.id_reservation = Reservation.id_reservation
+            INNER JOIN Prestation ON Reservation.id_prestation = Prestation.id_prestation
+            INNER JOIN Emplacement ON Reservation.id_emplacement = Emplacement.id_emplacement
+            WHERE id_facture=?";
             $prep = $this->bd->prepare($req);
             $prep->bindParam(1, $id);
             $prep->execute();
@@ -50,17 +55,10 @@ class Facture {
                 }
                 throw new RestException(400, $message);
             }
-            $facture->id_facture = intval($facture->id_facture);
             $retour = $facture;
         // Si aucun id n'est passé en paramètre, retour de tous les emplacement disponnible
         } else {
-            $req = "select * from Facture";
-            $resultat = $this->bd->query($req);
-            $facture = new Facture();
-            while ($facture = $resultat->fetchObject()) {
-                $facture->id_facture = intval($facture->id_facture);
-                $retour[] = $facture;
-            }
+            $retour = NULL;
         }
         return $retour;
     }
@@ -90,7 +88,6 @@ class Facture {
         $facture = $this->_rempli($id, $request_data);
 		$req = "update Facture set id_reservation=? where id_facture=?";
 		$id_reservation = $facture["id_reservation"];
-		$id_facture = $facture["id_facture"];
 		$prep = $this->bd->prepare($req);
 		$prep->bindParam(1, $id_reservation);
 		$prep->bindParam(2, $id);
