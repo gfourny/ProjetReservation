@@ -1,5 +1,5 @@
 ## Serveur API RESTFULL <Br/> Groupe Camping Vacance Europe
-> Guillaume Fourny - Alexandre Desvallées
+> Guillaume Fourny - Alexandre Desvallées - Étienne Hounguevou
 
 ## Table des matières
 1. [Les Fonctionnalités](#features)
@@ -16,6 +16,8 @@
 * Lisibilité des informations utiles en ligne
 
 ### Types de méthodes <a name="callAPI"></a>
+Les méthodes présentes ci-dessous sont soit accessible à tous ou seulement à des personnes précises.
+Ainsi, le staff du camping aura accès à des informations en plus comparé aux clients. 
 
 #### GET
 
