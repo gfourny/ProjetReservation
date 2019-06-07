@@ -5,6 +5,6 @@ Defaults::$smartAutoRouting = false;
 $r = new Restler();
 $r->addAPIClass('Reservation');
 $r->addAPIClass('Facture');
-$r->addAuthenticationClass('../authentication/SimpleAuth');
+$r->addAuthenticationClass('SimpleAuth');
 $r->handle();
 ?>

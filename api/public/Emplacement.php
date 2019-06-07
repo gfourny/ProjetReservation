@@ -52,7 +52,7 @@ class Emplacement
                 }
                 throw new RestException(400, $message);
             }
-            $emplacement->id = intval($emplacement->id_emplacement);
+            $emplacement->id_emplacement = intval($emplacement->id_emplacement);
             $retour = $emplacement;
         // Si aucun id n'est passé en paramètre, retour de tous les emplacement disponnible
         } else {
