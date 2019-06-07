@@ -1,25 +1,69 @@
-<!-- Formulaire  Prestation-->
-<form method="post"
-action="reserver.php" name="formulaire">
+<!-- Formulaire Reservation -->
+<form method="post" action="reserver.php" name="formulaire">
 
-<p> Nom : 
+    <p> Nom :
 
-<input name="nom"
-type="text">
+        <input name="nom" type="text">
 
-</p>
+    </p>
 
-<p>Prix : 
+    <p> Nombre de personne :
 
-<input name="price" type="number" placeholder="1.0" step="0.01" min="0" max="10">
+        <input name="nbPers" type="text">
 
-</p>
+    </p>
 
-<p>
+    <p> Nombre de jours :
 
-<input value="valider"
-type="submit">
+        <input name="dureeSejour" type="text">
 
-</p>
+    </p>
 
-</form> 
+    <label for="start">Type d'emplacement :</label>
+    <?php
+    $emplacements = optenirEmplacement();
+    echo build_list($emplacements);
+    ?>
+
+    <p>
+        <label for="start">Start date:</label>
+    <!-- <?php
+    // $dateDuJour = date("Y-m-d");
+    // $anneCourante = date("Y");
+    // $valeurAnneMoinsUn = (int)$anneCourante-1;
+    // $valeurAnnePlusUn = (int)$anneCourante+1;
+    // $anneePreced = str_replace((string)$valeurAnneMoinsUn, $anneCourante, $valeurAnneMoinsUn."-01-01");
+    // $anneeSuivante = str_replace((string)$valeurAnnePlusUn, $anneCourante, $valeurAnneMoinsUn."-12-31");
+    // echo '<input type="date" id="start" name="trip-start" value="'.$dateDuJour.'"  min="'.$anneePreced.'" max="'.$anneeSuivante.'">'    
+    ?> -->
+        <input type="date" id="start" name="trip-start" value="2019-06-07"  min="2018-01-01" max="2020-12-31">
+    </p>
+
+    <p>
+        <input value="valider" type="submit">
+    </p>
+
+</form>
+
+
+<?php
+require_once("../api/private/Reservation.php");
+
+// Function Section
+function build_list($array)
+{
+    $list = '<ul>';
+    foreach ($array as $key => $value) {
+        foreach ($value as $key => $type) {
+            if (is_array($type)) {
+                $list .= build_list($type);
+            } else {
+                $list .= "<li>$type</li>";
+            }
+        }
+    }
+
+    $list .= '</ul>';
+    return $list;
+}
+?>
