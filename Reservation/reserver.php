@@ -152,7 +152,7 @@ function obtenirEmplacement($id_emplacement = NULL)
         curl_close($ch);
         return $reponse;
     } else {
-        curl_setopt($ch, CURLOPT_URL, "http://localhost:8080/ProjetReservation/api/private/index.php/Emplacement/");
+        curl_setopt($ch, CURLOPT_URL, "http://localhost:8080/ProjetReservation/api/public/index.php/Emplacement/");
         curl_setopt($ch, CURLOPT_HTTPHEADER, $httpheader);
         $reponse = curl_exec($ch);
         curl_close($ch);
