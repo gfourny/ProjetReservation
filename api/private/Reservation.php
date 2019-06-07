@@ -7,7 +7,7 @@ require_once("../database/localData.php");
 class Reservation {
 
     private $bd;
-    static $CHAMPS = array('date_arrivee', 'date_fin', 'nb_personne', 'id_emplacement', 'id_prestation');
+    static $CHAMPS = array('date_arrivee', 'date_fin', 'nb_personne', 'id_emplacement', 'id_prestation', 'nom_personne');
 
     function __construct()
 	{
@@ -72,18 +72,20 @@ class Reservation {
     function post($request_data = NULL){
 
         $reservation = $this->_validation($request_data);
-		$req = "INSERT INTO Reservation (date_arrivee, date_fin, nb_personne, id_emplacement, id_prestation) VALUES (?,?,?,?,?)";
+		$req = "INSERT INTO Reservation (date_arrivee, date_fin, nb_personne, id_emplacement, id_prestation, nom_personne) VALUES (?,?,?,?,?,?)";
 		$prep = $this->bd->prepare($req);
 		$date_arrivee = $reservation["date_arrivee"];
 		$date_fin = $reservation["date_fin"];
         $nb_personne = $reservation["nb_personne"];
         $id_emplacement = $reservation["id_emplacement"];
-		$id_prestation = $reservation["id_prestation"];
+        $id_prestation = $reservation["id_prestation"];
+        $nom_personne = $reservation["nom_personne"];
 		$prep->bindParam(1, $date_arrivee);
 		$prep->bindParam(2, $date_fin);
         $prep->bindParam(3, $nb_personne);
         $prep->bindParam(4, $id_emplacement);
-		$prep->bindParam(5, $id_prestation);
+        $prep->bindParam(5, $id_prestation);
+        $prep->bindParam(6, $nom_personne);
         $prep->execute();
 		return $this->get($this->bd->lastInsertId());
     }
@@ -96,19 +98,21 @@ class Reservation {
 
         $id = htmlentities($id);
         $reservation = $this->_rempli($id, $request_data);
-		$req = "update Reservation set date_arrivee=?, date_fin=?, nb_personne=?, id_emplacement=?, id_prestation=? where id_reservation=?";
+		$req = "update Reservation set date_arrivee=?, date_fin=?, nb_personne=?, id_emplacement=?, id_prestation=?, nom_personne=? where id_reservation=?";
 		$date_arrivee = $reservation["date_arrivee"];
 		$date_fin = $reservation["date_fin"];
         $nb_personne = $reservation["nb_personne"];
         $id_emplacement = $reservation["id_emplacement"];
-		$id_prestation = $reservation["id_prestation"];
+        $id_prestation = $reservation["id_prestation"];
+        $nom_personne = $reservation["nom_personne"];
 		$prep = $this->bd->prepare($req);
 		$prep->bindParam(1, $date_arrivee);
 		$prep->bindParam(2, $date_fin);
         $prep->bindParam(3, $nb_personne);
         $prep->bindParam(4, $id_emplacement);
 		$prep->bindParam(5, $id_prestation);
-		$prep->bindParam(6, $id);
+        $prep->bindParam(6, $nom_personne);
+        $prep->bindParam(7, $id);
 		$prep->execute();
 		return $this->get($id);
     }
