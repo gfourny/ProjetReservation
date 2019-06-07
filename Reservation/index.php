@@ -1,3 +1,9 @@
+<?php
+// require __DIR__. "../api/private/Reservation.php";
+require("../api/private/Reservation.php");
+
+?>
+
 <!-- Formulaire Reservation -->
 <form method="post" action="reserver.php" name="formulaire">
 
@@ -47,7 +53,6 @@
 
 
 <?php
-require_once("../api/private/Reservation.php");
 
 // Function Section
 function build_list($array)
