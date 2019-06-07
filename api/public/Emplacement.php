@@ -23,7 +23,9 @@ class Emplacement
         if ($id != NULL) {
 
             //Préparation de la requête
-            $req = "select * from Emplacement where id_emplacement=? AND disponible=1";
+            $req = "SELECT * FROM Emplacement WHERE id_emplacement 
+            NOT IN (SELECT id_emplacement FROM Reservation) 
+            AND id_emplacement=?";
             $prep = $this->bd->prepare($req);
             $prep->bindParam(1, $id);
             $prep->execute();
@@ -56,7 +58,9 @@ class Emplacement
             $retour = $emplacement;
         // Si aucun id n'est passé en paramètre, retour de tous les emplacement disponnible
         } else {
-            $req = "select * from Emplacement WHERE disponible=1";
+            $req = "SELECT * FROM Emplacement
+            WHERE id_emplacement 
+            NOT IN (SELECT id_emplacement FROM Reservation) ORDER BY `id_emplacement` ASC";
             $resultat = $this->bd->query($req);
             $emplace = new Emplacement();
             while ($emplacement = $resultat->fetchObject()) {

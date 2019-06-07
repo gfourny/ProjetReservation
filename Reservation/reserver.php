@@ -132,6 +132,30 @@ function obtenirReservation($id_reservation = NULL)
         curl_close($ch);
         return $reponse;
     } else {
-        return NULL;
+        curl_setopt($ch, CURLOPT_URL, "http://localhost:8080/ProjetReservation/api/private/index.php/Reservation/");
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $httpheader);
+        $reponse = curl_exec($ch);
+        curl_close($ch);
+        return $reponse;
+    }
+}
+
+function obtenirEmplacement($id_emplacement = NULL)
+{
+    $ch = curl_init();
+    $apikey = $cle;
+    $httpheader = ['keyCamping: ' . $apikey];
+    if ($id_emplacement != NULL) {
+        curl_setopt($ch, CURLOPT_URL, "http://localhost:8080/ProjetReservation/api/private/index.php/Reservation/" . $id_emplacement);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $httpheader);
+        $reponse = curl_exec($ch);
+        curl_close($ch);
+        return $reponse;
+    } else {
+        curl_setopt($ch, CURLOPT_URL, "http://localhost:8080/ProjetReservation/api/private/index.php/Reservation/");
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $httpheader);
+        $reponse = curl_exec($ch);
+        curl_close($ch);
+        return $reponse;
     }
 }
