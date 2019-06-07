@@ -18,7 +18,7 @@ class Emplacement
      */
     function get($id = NULL)
     {
-
+        $id = htmlentities($id);
         // On vérifie si il y a un id d'emplacmement passé en paramètre
         if ($id != NULL) {
 

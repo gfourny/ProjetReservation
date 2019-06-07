@@ -7,6 +7,7 @@ require_once("../database/localData.php");
 class Reservation {
 
     private $bd;
+    static $CHAMPS = array('date_arrivee', 'date_fin', 'nb_personne', 'id_emplacement', 'id_prestation');
 
     function __construct()
 	{
@@ -19,6 +20,7 @@ class Reservation {
      */
     function get($id = NULL){
 
+        $id = htmlentities($id);
         if ($id != NULL){
             //Préparation de la requête
             $req = "select * from Reservation where id_reservation=?";
@@ -60,6 +62,7 @@ class Reservation {
                 $retour[] = $reservation;
             }
         }
+        return $retour;
     }
     
     // Reservation d'un emplacement
@@ -68,6 +71,21 @@ class Reservation {
 	 */
     function post($request_data = NULL){
 
+        $reservation = $this->_validation($request_data);
+		$req = "INSERT INTO Reservation (date_arrivee, date_fin, nb_personne, id_emplacement, id_prestation) VALUES (?,?,?,?,?)";
+		$prep = $this->bd->prepare($req);
+		$date_arrivee = $reservation["date_arrivee"];
+		$date_fin = $reservation["date_fin"];
+        $nb_personne = $reservation["nb_personne"];
+        $id_emplacement = $reservation["id_emplacement"];
+		$id_prestation = $reservation["id_prestation"];
+		$prep->bindParam(1, $date_arrivee);
+		$prep->bindParam(2, $date_fin);
+        $prep->bindParam(3, $nb_personne);
+        $prep->bindParam(4, $id_emplacement);
+		$prep->bindParam(5, $id_prestation);
+        $prep->execute();
+		return $this->get($this->bd->lastInsertId());
     }
 
     // Modification d'une réservation
@@ -76,6 +94,23 @@ class Reservation {
 	 */
     function patch($id, $request_data = NULL){
 
+        $id = htmlentities($id);
+        $reservation = $this->_rempli($id, $request_data);
+		$req = "update Reservation set date_arrivee=?, date_fin=?, nb_personne=?, id_emplacement=?, id_prestation=? where id_reservation=?";
+		$date_arrivee = $reservation["date_arrivee"];
+		$date_fin = $reservation["date_fin"];
+        $nb_personne = $reservation["nb_personne"];
+        $id_emplacement = $reservation["id_emplacement"];
+		$id_prestation = $reservation["id_prestation"];
+		$prep = $this->bd->prepare($req);
+		$prep->bindParam(1, $date_arrivee);
+		$prep->bindParam(2, $date_fin);
+        $prep->bindParam(3, $nb_personne);
+        $prep->bindParam(4, $id_emplacement);
+		$prep->bindParam(5, $id_prestation);
+		$prep->bindParam(6, $id);
+		$prep->execute();
+		return $this->get($id);
     }
 
     // Suppression d'une réservation
@@ -84,7 +119,58 @@ class Reservation {
 	 */
     function delete($id){
 
+        $id = htmlentities($id);
+        //nous verifions avant si l'individu existe
+		$retour = $this->get($id);
+		if (!$retour) {
+			return FALSE;
+		} else {
+			try {
+				$req = "delete from Reservation where id_reservation=?;";
+				$prep = $this->bd->prepare($req);
+				$prep->bindParam(1, $id);
+				//on exécute la requête sql
+				$prep->execute();
+			} catch (PDOException $e) {
+				return FALSE;
+				die();
+			}
+		}
+		return $retour;
     }
 
+
+    private function _validation($data)
+	{
+		//  $reservation = array();
+		foreach (Reservation::$CHAMPS as $champ) {
+			//on commence par valider les données reçues
+			if (!isset($data[$champ])) {
+				throw new RestException(400, "$champ field missing");
+			}
+		}
+		// on construit un $tabReservation par rapport aux données reçues
+		foreach (reservation::$CHAMPS as $champ) {
+            echo $champ;
+			$tabReservation[$champ] = htmlentities($data[$champ]);
+		}
+		return $tabReservation;
+    }
+    
+
+	private function _rempli($id, $data)
+	{
+		$reservation = $this->get($id);
+		// on transforme l'objet reservation en tableau
+		$tabReservation = get_object_vars($reservation);
+		//  $reservation = array();
+		foreach (reservation::$CHAMPS as $champ) {
+			//on commence rempli le reste du tableau par les champs reçus
+			if (isset($data[$champ])) {
+				$tabReservation[$champ] = htmlentities($data[$champ]);
+			}
+		}
+		return $tabReservation;
+	}
 }
 ?>
