@@ -155,7 +155,6 @@ class Reservation {
 		}
 		// on construit un $tabReservation par rapport aux données reçues
 		foreach (reservation::$CHAMPS as $champ) {
-            echo $champ;
 			$tabReservation[$champ] = htmlentities($data[$champ]);
 		}
 		return $tabReservation;
