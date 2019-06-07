@@ -1,7 +1,4 @@
 <?php
-require("../api/private/Reservation.php");
-require("../api/public/Emplacement.php");
-require("./reserver.php")
 ?>
 
 <!-- Formulaire Reservation -->
