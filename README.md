@@ -36,7 +36,7 @@ Ainsi, le staff du camping aura accès à des informations en plus comparé aux 
 ##### Ma Methode.Name
 
 ### Modélisation <a name="mcd"></a>
-[Insert Schéma there](myUri...)
+![MCD](https://github.com/gfourny/ProjetReservation/blob/master/mcd/ProjetReservation.JPG)
 
 ### Sécurité <a name="projSecure"></a>
 Le serveur pour nos API RESTful utilise le framework PHP Restler 3.0 qui est à cheval sur le respect des normes de sécurité pour les API de type REST. Une base de données MySQL supportera notre site et sera administrée via l'interface PhpMyAdmin fourni par Restler. Au niveau transactionnel, on utilisera (si possible) les protocoles SSL/TLS.

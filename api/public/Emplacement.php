@@ -2,7 +2,7 @@
 
 use Luracast\Restler\RestException;
 
-require_once("../api/database/localData.php");
+require_once("../database/localData.php");
 
 class Emplacement
 {
